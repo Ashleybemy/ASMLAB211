@@ -62,4 +62,43 @@ public class ProductDAO {
         }
     }
     // ... Các phương thức thêm, sửa, xóa sản phẩm (insertProduct, updateProduct, deleteProduct) tương tự ...
+    public void insertProduct(Product product) {
+        String sql = "INSERT INTO Product(name, price, stock) VALUES (?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setString(1, product.getName());
+            pst.setDouble(2, product.getPrice());
+            pst.setInt(3, product.getStock());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Cập nhật thông tin sản phẩm
+    public void updateProduct(Product product) {
+        String sql = "UPDATE Product SET name = ?, price = ?, stock = ? WHERE product_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setString(1, product.getName());
+            pst.setDouble(2, product.getPrice());
+            pst.setInt(3, product.getStock());
+            pst.setInt(4, product.getProductId());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Xóa sản phẩm theo product_id
+    public void deleteProduct(int productId) {
+        String sql = "DELETE FROM Product WHERE product_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, productId);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

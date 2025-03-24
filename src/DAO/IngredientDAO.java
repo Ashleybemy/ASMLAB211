@@ -37,5 +37,28 @@ public class IngredientDAO {
             e.printStackTrace();
         }
     }
-    // Thêm nguyên liệu mới, xóa nguyên liệu ... (nếu cần)
+    // Thêm nguyên liệu mới, xóa nguyên liệu
+    public void addIngredient(Ingredient ingredient) {
+        String sql = "INSERT INTO Ingredient(name, quantity) VALUES (?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setString(1, ingredient.getName());
+            pst.setInt(2, ingredient.getQuantity());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Xóa nguyên liệu theo ingredientId
+    public void deleteIngredient(int ingredientId) {
+        String sql = "DELETE FROM Ingredient WHERE ingredient_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, ingredientId);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

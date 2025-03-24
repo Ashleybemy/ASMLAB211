@@ -9,6 +9,7 @@ public class Customer {
     private int points;
 
     public Customer() {}
+
     public Customer(int id, String name, String phone, Date birthDate, int points) {
         this.customerId = id;
         this.name = name;
@@ -16,7 +17,7 @@ public class Customer {
         this.birthDate = birthDate;
         this.points = points;
     }
-    // Getters & Setters...
+
     public int getCustomerId() { return customerId; }
     public void setCustomerId(int customerId) { this.customerId = customerId; }
     public String getName() { return name; }

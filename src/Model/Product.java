@@ -5,7 +5,6 @@ public class Product {
     private double price;
     private int stock;
 
-    // Constructor
     public Product(int productId, String name, double price, int stock) {
         this.productId = productId;
         this.name = name;
@@ -15,7 +14,6 @@ public class Product {
     // Các constructor quá tải (overload) nếu cần
     public Product() {}
 
-    // Getters and Setters
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }
     public String getName() { return name; }

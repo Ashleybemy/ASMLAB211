@@ -3,13 +3,14 @@ public class Ingredient {
     private int ingredientId;
     private String name;
     private int quantity;
-    // Constructors, getters, setters tương tự
-
 
     public Ingredient(int ingredientId, String name, int quantity) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.quantity = quantity;
+    }
+
+    public Ingredient() {
     }
 
     public int getIngredientId() {

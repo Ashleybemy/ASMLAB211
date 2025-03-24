@@ -16,6 +16,9 @@ public class Employee {
         this.password = password;
     }
 
+    public Employee() {
+    }
+
     public int getEmployeeId() {
         return employeeId;
     }
@@ -63,6 +66,4 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    // Constructors, getters, setters giống cách trên
 }

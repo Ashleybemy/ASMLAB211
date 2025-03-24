@@ -4,14 +4,15 @@ public class OrderItem {
     private Product product;
     private int quantity;
     private double price;
-    // Constructors, getters, setters...
-
 
     public OrderItem(int id, Product product, int quantity, double price) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public OrderItem() {
     }
 
     public int getId() {

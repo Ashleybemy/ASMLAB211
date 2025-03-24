@@ -41,6 +41,29 @@ public class CustomerDAO {
         return cust;
     }
 
+    public Customer getCustomerById(int customerId) {
+        Customer customer = null;
+        String sql = "SELECT * FROM Customer WHERE customer_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, customerId);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    customer = new Customer();
+                    customer.setCustomerId(rs.getInt("customer_id"));
+                    customer.setName(rs.getString("name"));
+                    customer.setPhone(rs.getString("phone"));
+                    customer.setBirthDate(rs.getDate("birth_date"));
+                    customer.setPoints(rs.getInt("points"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
+
+
     // Cập nhật thông tin khách hàng
     public void updateCustomer(Customer customer) {
         String sql = "UPDATE Customer SET name=?, birth_date=?, points=? WHERE phone=?";

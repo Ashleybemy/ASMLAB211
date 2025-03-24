@@ -9,8 +9,6 @@ public class Order {
     private Employee employee;
     private List<OrderItem> items;
     private double totalAmount;
-    // Constructors, getters, setters...
-
 
     public Order(int orderId, Date orderDate, Customer customer, Employee employee, List<OrderItem> items, double totalAmount) {
         this.orderId = orderId;
@@ -19,6 +17,9 @@ public class Order {
         this.employee = employee;
         this.items = items;
         this.totalAmount = totalAmount;
+    }
+
+    public Order() {
     }
 
     public int getOrderId() {

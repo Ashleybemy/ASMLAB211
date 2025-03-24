@@ -83,4 +83,27 @@ public class EmployeeDAO {
         }
         return emp;
     }
+
+    public Employee getEmployeeById(int employeeId) {
+        Employee emp = null;
+        String sql = "SELECT * FROM Employee WHERE employee_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, employeeId);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    emp = new Employee();
+                    emp.setEmployeeId(rs.getInt("employee_id"));
+                    emp.setName(rs.getString("name"));
+                    emp.setRole(rs.getString("role"));
+                    emp.setSalary(rs.getDouble("salary"));
+                    emp.setUsername(rs.getString("username"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return emp;
+    }
+
 }
