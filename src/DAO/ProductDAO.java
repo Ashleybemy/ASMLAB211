@@ -5,8 +5,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDAO {
-    // Lấy danh sách tất cả sản phẩm
+public class ProductDAO implements IProductDAO {
+
+    @Override
     public List<Product> getAllProducts() {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM Product";
@@ -28,7 +29,7 @@ public class ProductDAO {
         return list;
     }
 
-    // Tìm sản phẩm theo ID
+    @Override
     public Product getProductById(int id) {
         Product p = null;
         String sql = "SELECT * FROM Product WHERE product_id = ?";
@@ -37,10 +38,12 @@ public class ProductDAO {
             pst.setInt(1, id);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
-                    p = new Product(rs.getInt("product_id"),
+                    p = new Product(
+                            rs.getInt("product_id"),
                             rs.getString("name"),
                             rs.getDouble("price"),
-                            rs.getInt("stock"));
+                            rs.getInt("stock")
+                    );
                 }
             }
         } catch (SQLException e) {
@@ -49,7 +52,7 @@ public class ProductDAO {
         return p;
     }
 
-    // Cập nhật tồn kho (sau khi nhập/xuất kho hoặc sau khi bán hàng)
+    @Override
     public void updateStock(int productId, int newStock) {
         String sql = "UPDATE Product SET stock = ? WHERE product_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -61,7 +64,8 @@ public class ProductDAO {
             e.printStackTrace();
         }
     }
-    // ... Các phương thức thêm, sửa, xóa sản phẩm (insertProduct, updateProduct, deleteProduct) tương tự ...
+
+    @Override
     public void insertProduct(Product product) {
         String sql = "INSERT INTO Product(name, price, stock) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
@@ -75,7 +79,7 @@ public class ProductDAO {
         }
     }
 
-    // Cập nhật thông tin sản phẩm
+    @Override
     public void updateProduct(Product product) {
         String sql = "UPDATE Product SET name = ?, price = ?, stock = ? WHERE product_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -90,7 +94,7 @@ public class ProductDAO {
         }
     }
 
-    // Xóa sản phẩm theo product_id
+    @Override
     public void deleteProduct(int productId) {
         String sql = "DELETE FROM Product WHERE product_id = ?";
         try (Connection conn = DBConnection.getConnection();
